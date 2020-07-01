@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/filter.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="filters">
+        <div class="filter-label">Filter By:</div>
+        <div class="filter-names">
+          <div class="dropdown">
+            <button class="dropbtn">Hands</button>
+            <div class="dropdown-content">
+              <a onclick="filterByType('hands', 1)">1</a>
+              <a onclick="filterByType('hands', 2)">2</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">Hand Location</button>
+            <div class="dropdown-content">
+              <a onclick="filterByType('location', 'The whole face/head')"
+                >The whole face/head</a
+              >
+              <a onclick="filterByType('location', 'Temple')">Temple</a>
+              <a onclick="filterByType('location', 'The trunk')">The trunk</a>
+              <a onclick="filterByType('location', 'Chin')">Chin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="gifs"></div>
+    </div>
+
+    <script>
+      const signs = [
+        {
+        URL: "./media/Focus.gif",
+          hands: 2,
+          location: "The trunk",
+          name: "diarrhea"
+        },
+        {
+          URL: "./media/Include.gif",
+          hands: 1,
+          location: "The whole face/head",
+          name: "Include"
+        },
+        {
+          URL: "./media/Curly.gif",
+          hands: 1,
+          location: "Temple",
+          name: "Curly"
+        },
+        {
+          URL: "./media/Mix-up.gif",
+          hands: 2,
+          location: "The whole face/head",
+          name: "Mix-up"
+        },
+        {
+          URL: "./media/Learn.gif",
+          hands: 1,
+          location: "Chin",
+          name: "Learn"
+        },
+        {
+          URL: "./media/Puff-smoke.gif",
+          hands: 1,
+          location: "Chin",
+          name: "Puff-smoke"
+        }
+      ];
+      // GIFs container
+            const gifsContainer = document.getElementById("gifs");
+
+            /**
+           @param {String} type
+           @param {String | Number} value
+           */
+            const filterByType = (type, value) => {
+              // remove all child nodes of GIFs container
+              gifsContainer.innerHTML = "";
+
+              // when filter type is default, show all gifs
+              let results = [...signs];
+
+              // filter signs based on the type (property) and value
+              if (type !== "default") {
+                results = signs.filter(sign => sign[type] === value);
+              }
+
+              // loop through the results and create a div with an img element for each sign
+              // append the above elements to GIFs container
+              results.forEach((sign, index) => {
+                const divElement = document.createElement("div");
+                const imgElement = document.createElement("img");
+                imgElement.src = sign.URL;
+                imgElement.alt = `${sign.name.toLocaleUpperCase()} Sign Image`;
+                imgElement.title = `${sign.name} Sign Image`;
+                divElement.appendChild(imgElement);
+                gifsContainer.appendChild(divElement);
+              });
+
+              console.log(Results);
+            };
+
+
+            // filter all signs by default on page load
+            window.onload = filterByType("default", null);
+    </script>
+  </body>
+</html>
